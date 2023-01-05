@@ -25,7 +25,7 @@ const playersReducer = (state: any = initialState, action: any) => {
           state
         );
 
-        if (action.isFavorite) {
+        if (action.shouldBeFavorite) {
           if (!isFavoritePlayer) {
             return {
               ...state,

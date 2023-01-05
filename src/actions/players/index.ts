@@ -8,11 +8,11 @@ const fetchPlayersSuccess = (players: Player[]) => {
   };
 };
 
-const togglePlayerFavorite = (player: Player, isFavorite: boolean) => {
+const togglePlayerFavorite = (player: Player, shouldBeFavorite: boolean) => {
   return {
     type: TOGGLE_PLAYER_FAVORITE,
     player,
-    isFavorite,
+    shouldBeFavorite,
   };
 };
 

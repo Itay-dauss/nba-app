@@ -50,7 +50,7 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
             key={player.id}
             player={player}
             isFavorite={false}
-            togglePlayerFavorite={() => togglePlayerFavorite(player, false)}
+            togglePlayerFavorite={() => togglePlayerFavorite(player, true)}
           ></PlayerCard>
         ))}
       </PlayersList>
@@ -63,13 +63,14 @@ const mapDispatchToProps = (dispatch: any) => {
     storePlayersFetched: dispatch((playersFetched: Player[]) =>
       fetchPlayersSuccess(playersFetched)
     ),
-    togglePlayerFavorite: dispatch((player: Player, isFavorite: boolean) =>
-      togglePlayerFavorite(player, isFavorite)
+    togglePlayerFavorite: dispatch(
+      (player: Player, shouldBeFavorite: boolean) =>
+        togglePlayerFavorite(player, shouldBeFavorite)
     ),
   };
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = () => {
   return {
     allPlayersFetched: getAllPlayersFetched(),
   };
