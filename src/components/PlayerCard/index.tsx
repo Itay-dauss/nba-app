@@ -18,7 +18,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
         />
       ) : (
         <SwapFavoriteButton
-          buttonText={"Move To Favorite"}
+          buttonText={"Add To Favorite"}
           onClick={() => togglePlayerFavorite(player, true)}
           isFavorite={isFavorite}
         />
