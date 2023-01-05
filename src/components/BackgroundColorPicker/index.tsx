@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { BackgroundContainer, ColorPickerButton } from "./styles";
-import ColorPickerDialog from "../ColorPickerDialog";
+import { ColorPickerButton } from "./styles";
+import ColorPickerDialog from "./ColorPickerDialog";
 import { DefaultBackgroundColor } from "../../utils/colors";
 import { Color } from "../../models/color";
+import { BackgroundContainer } from "./BackgroundContainer";
+import { BackgroundColorPickerProps } from "./interfaces";
 
-const BackgroundColorPicker = (props: { children: any }) => {
-  const { children } = props;
-
+const BackgroundColorPicker: React.FC<BackgroundColorPickerProps> = ({
+  children,
+}: BackgroundColorPickerProps) => {
   const [backgroundColor, setBackgroundColor] = useState<string>(
     DefaultBackgroundColor.hex
   );
   const [isColorPickerOpen, setIsColorPickerOpen] = useState<boolean>(false);
 
-  const toggleColorPickerWindow = () => {
+  const toggleColorPickerDialog = () => {
     setIsColorPickerOpen((currentValue: boolean) => {
       return !currentValue;
     });
@@ -26,12 +28,12 @@ const BackgroundColorPicker = (props: { children: any }) => {
   return (
     <BackgroundContainer backgroundColor={backgroundColor}>
       {children}
-      <ColorPickerButton onClick={toggleColorPickerWindow}>
+      <ColorPickerButton onClick={toggleColorPickerDialog}>
         Pick Background Color
       </ColorPickerButton>
       <ColorPickerDialog
         isOpen={isColorPickerOpen}
-        handleClose={toggleColorPickerWindow}
+        handleClose={toggleColorPickerDialog}
         onColorPick={onColorPick}
       />
     </BackgroundContainer>

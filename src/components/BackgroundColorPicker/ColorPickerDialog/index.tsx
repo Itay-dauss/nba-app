@@ -3,8 +3,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
-import { ColorPickerContainer, ColorOption } from "./styles";
-import { ColorsPallete } from "../../utils/colors";
+import { ColorPickerContainer } from "./styles";
+import { ColorsPallete } from "../../../utils/colors";
+import { ColorPickerOption } from "../ColorPickerOption";
 
 const ColorPickerDialog = (props: {
   isOpen: boolean;
@@ -19,7 +20,7 @@ const ColorPickerDialog = (props: {
       <DialogContent>
         <ColorPickerContainer>
           {ColorsPallete.map((color) => (
-            <ColorOption
+            <ColorPickerOption
               key={color.name}
               colorHex={color.hex}
               onClick={() => onColorPick(color)}

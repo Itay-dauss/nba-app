@@ -1,13 +1,11 @@
-import { Player } from "../../models/player";
 import { CardContainer, CardTitle, SwapFavoriteButton } from "./styles";
+import { PlayerCardProps } from "./interfaces";
 
-const PlayerCard = (props: {
-  player: Player;
-  isFavorite: boolean;
-  togglePlayerFavorite: any;
-}) => {
-  const { player, isFavorite, togglePlayerFavorite } = props;
-
+const PlayerCard: React.FC<PlayerCardProps> = ({
+  player,
+  isFavorite,
+  togglePlayerFavorite,
+}: PlayerCardProps) => {
   return (
     <CardContainer>
       <CardTitle>{`${player.first_name} ${player.last_name}`}</CardTitle>
