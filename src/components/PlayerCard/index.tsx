@@ -1,5 +1,6 @@
-import { CardContainer, CardTitle, SwapFavoriteButton } from "./styles";
+import { CardContainer, CardTitle } from "./styles";
 import { PlayerCardProps } from "./interfaces";
+import { SwapFavoriteButton } from "./SwapFavoriteButton";
 
 const PlayerCard: React.FC<PlayerCardProps> = ({
   player,

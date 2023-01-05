@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ButtonProps } from "./interfaces";
 
 export const CardContainer = styled.div`
   direction: ltr;
@@ -14,3 +15,11 @@ export const CardContainer = styled.div`
 `;
 
 export const CardTitle = styled.h3``;
+
+export const BasicButton = styled.button<ButtonProps>`
+  background: ${(props: any) => (props.isFavorite ? "red" : "limegreen")};
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  height: fit-content;
+`;
