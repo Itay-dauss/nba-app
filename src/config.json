@@ -1,5 +1,10 @@
 {
-    "api": {
-        "getAllPlayers": "https://www.balldontlie.io/api/v1/players"
+  "api": {
+    "balldontlie": {
+      "baseUrl": "https://www.balldontlie.io/api",
+      "routes": {
+        "getAllPlayers": "/v1/players"
+      }
     }
+  }
 }
