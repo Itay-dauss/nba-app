@@ -22,7 +22,7 @@ export const ListContainer = styled.div`
 `;
 
 export const PlayersList = styled.div`
-  margin: 5px 0;
+  margin: 10px 0;
   direction: rtl;
   display: flex;
   flex-direction: column;
