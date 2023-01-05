@@ -8,7 +8,6 @@ import {
   fetchPlayersSuccess,
   togglePlayerFavorite,
 } from "../../actions/players";
-import { getAllPlayersFetched } from "../../selectors/players";
 import { allPlayersProps } from "./interfaces";
 
 const AllPlayersList: React.FC<allPlayersProps> = ({
@@ -22,20 +21,22 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
     getAllPlayers().then((allPlayersRes: Player[]) => {
       storePlayersFetched(allPlayersRes);
     });
-  }, []);
+  }, [storePlayersFetched]);
 
   useEffect(() => {
+    // TODO: usecase that delete last char
     if (searchValue === "") return;
 
     getPlayersBySearch(searchValue).then((filteredPlayersRes: Player[]) => {
       storePlayersFetched(filteredPlayersRes);
     });
-  }, [searchValue]);
+  }, [searchValue, storePlayersFetched]);
 
   const onInputChange = (event: any): void => {
     setSearchValue(event.target.value);
   };
 
+  console.log(allPlayersFetched);
   return (
     <ListContainer>
       <ListTitle>NBA Players</ListTitle>
@@ -60,19 +61,16 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    storePlayersFetched: dispatch((playersFetched: Player[]) =>
-      fetchPlayersSuccess(playersFetched)
-    ),
-    togglePlayerFavorite: dispatch(
-      (player: Player, shouldBeFavorite: boolean) =>
-        togglePlayerFavorite(player, shouldBeFavorite)
-    ),
+    storePlayersFetched: (playersFetched: Player[]) =>
+      dispatch(fetchPlayersSuccess(playersFetched)),
+    togglePlayerFavorite: (player: Player, shouldBeFavorite: boolean) =>
+      dispatch(togglePlayerFavorite(player, shouldBeFavorite)),
   };
 };
 
-const mapStateToProps = () => {
+const mapStateToProps = (state: any) => {
   return {
-    allPlayersFetched: getAllPlayersFetched(),
+    allPlayersFetched: state.playersReducer.allPlayers,
   };
 };
 

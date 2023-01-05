@@ -1,44 +1,26 @@
-import { useState, useEffect } from "react";
 import PlayerCard from "../PlayerCard";
 import BackgroundColorPicker from "../BackgroundColorPicker";
 import { ListContainer, ListTitle, PlayersList } from "./styles";
 import { Player } from "../../models/player";
+import { connect } from "react-redux";
+import { favoritePlayersProps } from "./interfaces";
+import { togglePlayerFavorite } from "../../actions/players";
 
-const FavoritePlayersList = () => {
-  const [favoritePlayers, setFavoritePlayers] = useState<Player[]>([]);
-
-  const togglePlayerFavorite = (player: Player, isFavorite: boolean) => {};
-  // const addPlayerToFavorite = (newPlayer: Player): void => {
-  //   const playerIndex = favoritePlayers.indexOf(newPlayer);
-  //   if (playerIndex === -1) {
-  //     setFavoritePlayers((currentFavoritePlayers) => {
-  //       return [...currentFavoritePlayers, newPlayer];
-  //     });
-  //   }
-  // };
-
-  // const removePlayerFromFavorite = (playerToRemove: Player): void => {
-  //   const playerIndex = favoritePlayers.indexOf(playerToRemove);
-  //   if (playerIndex >= 0) {
-  //     setFavoritePlayers((currentFavoritePlayers) => {
-  //       return currentFavoritePlayers.filter(
-  //         (player) => player.id !== playerToRemove.id
-  //       );
-  //     });
-  //   }
-  // };
-
+const FavoritePlayersList: React.FC<favoritePlayersProps> = ({
+  togglePlayerFavorite,
+  favoritePlayersFetched,
+}: favoritePlayersProps) => {
   return (
     <ListContainer>
       <BackgroundColorPicker>
         <ListTitle>Favorite Players</ListTitle>
         <PlayersList>
-          {favoritePlayers.map((player) => (
+          {favoritePlayersFetched.map((player: Player) => (
             <PlayerCard
               key={player.id}
               player={player}
               isFavorite={true}
-              togglePlayerFavorite={togglePlayerFavorite}
+              togglePlayerFavorite={() => togglePlayerFavorite(player, false)}
             ></PlayerCard>
           ))}
         </PlayersList>
@@ -47,4 +29,20 @@ const FavoritePlayersList = () => {
   );
 };
 
-export default FavoritePlayersList;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    togglePlayerFavorite: (player: Player, shouldBeFavorite: boolean) =>
+      dispatch(togglePlayerFavorite(player, shouldBeFavorite)),
+  };
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    favoritePlayersFetched: state.playersReducer.favoritePlayers,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FavoritePlayersList);
