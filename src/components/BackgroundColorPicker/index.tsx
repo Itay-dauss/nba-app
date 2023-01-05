@@ -6,6 +6,7 @@ import ColorPickerDialog from "./ColorPickerDialog";
 import BackgroundContainer from "./BackgroundContainer";
 import { Color } from "../../models/color";
 import { ColorsPallete, DefaultBackgroundColor } from "../../utils/colors";
+import * as Messages from "../../utils/messages";
 
 const BackgroundColorPicker: React.FC<BackgroundColorPickerProps> = ({
   children,
@@ -44,7 +45,7 @@ const BackgroundColorPicker: React.FC<BackgroundColorPickerProps> = ({
     <BackgroundContainer backgroundColor={backgroundColor}>
       {children}
       <ColorPickerButton onClick={toggleColorPickerDialog}>
-        Pick Background Color
+        {Messages.PICK_BACKGROUND_COLOR}
       </ColorPickerButton>
       <ColorPickerDialog
         isOpen={isColorPickerOpen}

@@ -22,12 +22,12 @@ export const ListContainer = styled.div`
 `;
 
 export const PlayersList = styled.div`
-  margin: auto;
+  margin: 10px 0;
   direction: rtl;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 80%;
+  height: fit-content;
 `;

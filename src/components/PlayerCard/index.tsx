@@ -1,6 +1,7 @@
 import { CardContainer, CardTitle } from "./styles";
 import { PlayerCardProps } from "./interfaces";
 import { SwapFavoriteButton } from "./SwapFavoriteButton";
+import * as Messages from "../../utils/messages";
 
 const PlayerCard: React.FC<PlayerCardProps> = ({
   player,
@@ -12,13 +13,13 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
       <CardTitle>{`${player.first_name} ${player.last_name}`}</CardTitle>
       {isFavorite ? (
         <SwapFavoriteButton
-          buttonText={"Remove From Favorite"}
+          buttonText={Messages.REMOVE_PLAYER_FROM_FAVORITE}
           onClick={() => togglePlayerFavorite(player, false)}
           isFavorite={isFavorite}
         />
       ) : (
         <SwapFavoriteButton
-          buttonText={"Add To Favorite"}
+          buttonText={Messages.ADD_PLAYER_TO_FAVORITE}
           onClick={() => togglePlayerFavorite(player, true)}
           isFavorite={isFavorite}
         />

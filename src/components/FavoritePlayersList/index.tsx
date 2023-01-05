@@ -5,6 +5,7 @@ import { Player } from "../../models/player";
 import { connect } from "react-redux";
 import { favoritePlayersProps } from "./interfaces";
 import { togglePlayerFavorite } from "../../actions/players";
+import * as Messages from "../../utils/messages";
 
 const FavoritePlayersList: React.FC<favoritePlayersProps> = ({
   togglePlayerFavorite,
@@ -13,7 +14,7 @@ const FavoritePlayersList: React.FC<favoritePlayersProps> = ({
   return (
     <ListContainer>
       <BackgroundColorPicker>
-        <ListTitle>Favorite Players</ListTitle>
+        <ListTitle>{Messages.FAVORITE_PLAYERS_TITLE}</ListTitle>
         <PlayersList>
           {favoritePlayersFetched.map((player: Player) => (
             <PlayerCard

@@ -10,6 +10,7 @@ import {
 } from "../../actions/players";
 import { allPlayersProps } from "./interfaces";
 import Spinner from "./Spinner";
+import * as Messages from "../../utils/messages";
 
 const AllPlayersList: React.FC<allPlayersProps> = ({
   allPlayersFetched,
@@ -46,10 +47,10 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
 
   return (
     <ListContainer>
-      <ListTitle>NBA Players</ListTitle>
+      <ListTitle>{Messages.ALL_PLAYERS_TITLE}</ListTitle>
       <SearchPlayer
         value={searchValue}
-        placeholder="Search for a player..."
+        placeholder={Messages.SEARCH_PLAYER_PLACEHOLDER}
         onChange={onInputChange}
       />
       {isLoading ? (
