@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import PlayerCard from "../PlayerCard";
 import { ListContainer, SearchPlayer, ListTitle, PlayersList } from "./styles";
@@ -16,6 +16,7 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
   storePlayersFetched,
 }: allPlayersProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const prevSearchValueRef = useRef("");
 
   useEffect(() => {
     getAllPlayers().then((allPlayersRes: Player[]) => {
@@ -24,12 +25,14 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
   }, [storePlayersFetched]);
 
   useEffect(() => {
-    // TODO: usecase that delete last char
-    if (searchValue === "") return;
+    // Avoid fetching data on first render
+    if (searchValue === "" && prevSearchValueRef.current.length === 0) return;
 
     getPlayersBySearch(searchValue).then((filteredPlayersRes: Player[]) => {
       storePlayersFetched(filteredPlayersRes);
     });
+
+    prevSearchValueRef.current = searchValue;
   }, [searchValue, storePlayersFetched]);
 
   const onInputChange = (event: any): void => {

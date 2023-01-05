@@ -22,7 +22,7 @@ export const ListContainer = styled.div`
 `;
 
 export const PlayersList = styled.div`
-  margin: auto;
+  margin: 5px 0;
   direction: rtl;
   display: flex;
   flex-direction: column;
@@ -40,5 +40,5 @@ export const SearchPlayer = styled.input`
   margin: 0 auto;
   border-radius: 10px;
   border: 2px solid darkgrey;
-  padding: 0 0 1px 5px;
+  padding: 3px 0 4px 6px;
 `;

@@ -18,36 +18,33 @@ const playersReducer = (state: any = initialState, action: any) => {
       };
 
     case TOGGLE_PLAYER_FAVORITE:
-      return () => {
-        const { favoritePlayers } = state;
-        const isFavoritePlayer: boolean = isPlayerInFavorite(
-          action.player,
-          state
-        );
+      const { favoritePlayers } = state;
+      const isFavoritePlayer: boolean = isPlayerInFavorite(
+        action.player,
+        state
+      );
 
-        if (action.shouldBeFavorite) {
-          if (!isFavoritePlayer) {
-            return {
-              ...state,
-              favoritePlayers: [...favoritePlayers, action.player],
-            };
-          } else {
-            return state;
-          }
+      if (action.shouldBeFavorite) {
+        if (!isFavoritePlayer) {
+          return {
+            ...state,
+            favoritePlayers: [...favoritePlayers, action.player],
+          };
         } else {
-          if (isFavoritePlayer) {
-            return {
-              ...state,
-              favoritePlayers: favoritePlayers.filter(
-                (favoritePlayer: Player) =>
-                  favoritePlayer.id !== action.player.id
-              ),
-            };
-          } else {
-            return state;
-          }
+          return state;
         }
-      };
+      } else {
+        if (isFavoritePlayer) {
+          return {
+            ...state,
+            favoritePlayers: favoritePlayers.filter(
+              (favoritePlayer: Player) => favoritePlayer.id !== action.player.id
+            ),
+          };
+        } else {
+          return state;
+        }
+      }
     default:
       return state;
   }
