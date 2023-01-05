@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import PlayerCard from "../PlayerCard";
 import { ListContainer, SearchPlayer, ListTitle, PlayersList } from "./styles";
 import { Player } from "../../models/player";
 import { getAllPlayers, getPlayersBySearch } from "../../utils/api";
+import {
+  fetchPlayersSuccess,
+  togglePlayerFavorite,
+} from "../../actions/players";
+import { getAllPlayersFetched } from "../../selectors/players";
+import { allPlayersProps } from "./interfaces";
 
-const AllPlayersList = () => {
-  const [allPlayers, setAllPlayers] = useState<Player[]>([]);
+const AllPlayersList: React.FC<allPlayersProps> = ({
+  allPlayersFetched,
+  togglePlayerFavorite,
+  storePlayersFetched,
+}: allPlayersProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   useEffect(() => {
     getAllPlayers().then((allPlayersRes: Player[]) => {
-      setAllPlayers(allPlayersRes);
+      storePlayersFetched(allPlayersRes);
     });
   }, []);
 
@@ -18,35 +28,13 @@ const AllPlayersList = () => {
     if (searchValue === "") return;
 
     getPlayersBySearch(searchValue).then((filteredPlayersRes: Player[]) => {
-      setAllPlayers(filteredPlayersRes);
+      storePlayersFetched(filteredPlayersRes);
     });
   }, [searchValue]);
 
   const onInputChange = (event: any): void => {
     setSearchValue(event.target.value);
   };
-
-  const togglePlayerFavorite = (player: Player, isFavorite: boolean) => {};
-
-  // const addPlayerToFavorite = (newPlayer: Player): void => {
-  //   const playerIndex = favoritePlayers.indexOf(newPlayer);
-  //   if (playerIndex === -1) {
-  //     setFavoritePlayers((currentFavoritePlayers) => {
-  //       return [...currentFavoritePlayers, newPlayer];
-  //     });
-  //   }
-  // };
-
-  // const removePlayerFromFavorite = (playerToRemove: Player): void => {
-  //   const playerIndex = favoritePlayers.indexOf(playerToRemove);
-  //   if (playerIndex >= 0) {
-  //     setFavoritePlayers((currentFavoritePlayers) => {
-  //       return currentFavoritePlayers.filter(
-  //         (player) => player.id !== playerToRemove.id
-  //       );
-  //     });
-  //   }
-  // };
 
   return (
     <ListContainer>
@@ -57,12 +45,12 @@ const AllPlayersList = () => {
         onChange={onInputChange}
       />
       <PlayersList>
-        {allPlayers.map((player) => (
+        {allPlayersFetched.map((player: Player) => (
           <PlayerCard
             key={player.id}
             player={player}
             isFavorite={false}
-            togglePlayerFavorite={togglePlayerFavorite}
+            togglePlayerFavorite={() => togglePlayerFavorite(player, false)}
           ></PlayerCard>
         ))}
       </PlayersList>
@@ -70,4 +58,21 @@ const AllPlayersList = () => {
   );
 };
 
-export default AllPlayersList;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    storePlayersFetched: dispatch((playersFetched: Player[]) =>
+      fetchPlayersSuccess(playersFetched)
+    ),
+    togglePlayerFavorite: dispatch((player: Player, isFavorite: boolean) =>
+      togglePlayerFavorite(player, isFavorite)
+    ),
+  };
+};
+
+const mapStateToProps = (state: any) => {
+  return {
+    allPlayersFetched: getAllPlayersFetched(),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllPlayersList);
