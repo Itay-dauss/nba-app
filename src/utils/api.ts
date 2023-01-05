@@ -5,19 +5,19 @@ import { Player } from "../models/player";
 const balldontlieConfig = config.api.balldontlie;
 
 export const getAllPlayers = async (): Promise<Player[]> => {
-  const allPlayersRes = await axios.get(
+  const { data: allPlayers } = await axios.get(
     balldontlieConfig.baseUrl + balldontlieConfig.routes.getAllPlayers
   );
-  return allPlayersRes.data.data;
+  return allPlayers.data;
 };
 
 export const getPlayersBySearch = async (
   searchValue: string
 ): Promise<Player[]> => {
-  const allPlayersRes = await axios.get(
+  const { data: filteredPlayers } = await axios.get(
     `${
       balldontlieConfig.baseUrl + balldontlieConfig.routes.getAllPlayers
     }?search=${searchValue}`
   );
-  return allPlayersRes.data.data;
+  return filteredPlayers.data;
 };
