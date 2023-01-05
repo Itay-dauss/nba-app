@@ -21,4 +21,8 @@ export const BasicButton = styled.button<ButtonProps>`
   cursor: pointer;
   font-weight: bold;
   height: fit-content;
+
+  &:hover {
+    background: ${(props: any) => (props.isFavorite ? "#ff6a6a" : "#77d577")};
+  }
 `;

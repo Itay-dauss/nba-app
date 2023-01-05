@@ -9,14 +9,14 @@ export const ListTitle = styled.h1`
 
 export const ListContainer = styled.div`
   width: 45%;
-  height: 100%;
+  max-height: 100%;
   margin: auto;
   direction: rtl;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow-y: auto;
+  overflow-y: scroll;
   background: #cc2b31;
   border-radius: 10px;
 `;
@@ -34,7 +34,6 @@ export const PlayersList = styled.div`
 
 export const SearchPlayer = styled.input`
   width: 62%;
-  height: 25px;
   direction: ltr;
   outline: 0;
   margin: 0 auto;

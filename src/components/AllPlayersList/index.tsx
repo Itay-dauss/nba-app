@@ -30,9 +30,11 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
   useEffect(() => {
     // Avoid fetching data on first render
     if (searchValue === "" && prevSearchValueRef.current.length === 0) return;
+    setIsLoading(true);
 
     getPlayersBySearch(searchValue).then((filteredPlayersRes: Player[]) => {
       storePlayersFetched(filteredPlayersRes);
+      setIsLoading(false);
     });
 
     prevSearchValueRef.current = searchValue;

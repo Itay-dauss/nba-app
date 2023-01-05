@@ -8,9 +8,10 @@ export const ColorPickerButton = styled.button`
   background: burlywood;
   font-weight: bold;
   border-radius: 6px;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
+    background: #f0d7b8;
   }
 `;
 
