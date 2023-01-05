@@ -9,18 +9,21 @@ import {
   togglePlayerFavorite,
 } from "../../actions/players";
 import { allPlayersProps } from "./interfaces";
+import Spinner from "./Spinner";
 
 const AllPlayersList: React.FC<allPlayersProps> = ({
   allPlayersFetched,
   togglePlayerFavorite,
   storePlayersFetched,
 }: allPlayersProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState<string>("");
   const prevSearchValueRef = useRef("");
 
   useEffect(() => {
     getAllPlayers().then((allPlayersRes: Player[]) => {
       storePlayersFetched(allPlayersRes);
+      setIsLoading(false);
     });
   }, [storePlayersFetched]);
 
@@ -39,7 +42,6 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
     setSearchValue(event.target.value);
   };
 
-  console.log(allPlayersFetched);
   return (
     <ListContainer>
       <ListTitle>NBA Players</ListTitle>
@@ -48,16 +50,20 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
         placeholder="Search for a player..."
         onChange={onInputChange}
       />
-      <PlayersList>
-        {allPlayersFetched.map((player: Player) => (
-          <PlayerCard
-            key={player.id}
-            player={player}
-            isFavorite={false}
-            togglePlayerFavorite={() => togglePlayerFavorite(player, true)}
-          ></PlayerCard>
-        ))}
-      </PlayersList>
+      {isLoading ? (
+        <Spinner isVisible={isLoading} />
+      ) : (
+        <PlayersList>
+          {allPlayersFetched.map((player: Player) => (
+            <PlayerCard
+              key={player.id}
+              player={player}
+              isFavorite={false}
+              togglePlayerFavorite={() => togglePlayerFavorite(player, true)}
+            ></PlayerCard>
+          ))}
+        </PlayersList>
+      )}
     </ListContainer>
   );
 };
