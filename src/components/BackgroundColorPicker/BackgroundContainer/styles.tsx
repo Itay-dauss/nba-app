@@ -1,11 +1,10 @@
-import React from "react";
 import styled from "styled-components";
 import { BackgroundProps } from "./interfaces";
 
 export const BasicBackground = styled.div<BackgroundProps>`
-  background: ${(props: any) => props.backgroundColor};
+  background: ${({ backgroundColor }: BackgroundProps) => backgroundColor};
 
-  width: 45%;
+  width: 100%;
   height: 100%;
   margin: auto;
   direction: rtl;

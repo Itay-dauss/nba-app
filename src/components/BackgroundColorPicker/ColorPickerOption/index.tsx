@@ -1,7 +1,7 @@
 import { ColorOptionProps } from "./interfaces";
 import { BasicColorOption } from "./styles";
 
-export const ColorPickerOption: React.FC<ColorOptionProps> = ({
+const ColorPickerOption: React.FC<ColorOptionProps> = ({
   colorHex,
   onClick,
 }: ColorOptionProps) => {
@@ -9,3 +9,5 @@ export const ColorPickerOption: React.FC<ColorOptionProps> = ({
     <BasicColorOption colorHex={colorHex} onClick={onClick}></BasicColorOption>
   );
 };
+
+export default ColorPickerOption;

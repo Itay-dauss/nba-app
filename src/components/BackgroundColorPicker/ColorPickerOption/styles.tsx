@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import { ColorOptionProps } from "./interfaces";
 
 export const BasicColorOption = styled.div<ColorOptionProps>`
-  background: ${(props: any) => props.colorHex};
+  background: ${({ colorHex }: ColorOptionProps) => colorHex};
 
   width: 35px;
   height: 35px;
