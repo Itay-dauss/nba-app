@@ -7,7 +7,7 @@ export const BasicColorOption = styled.div<ColorOptionProps>`
   width: 35px;
   height: 35px;
   border: 1px solid black;
-  margin: auto;
+  margin: 2px;
   cursor: pointer;
   border-radius: 50%;
 `;

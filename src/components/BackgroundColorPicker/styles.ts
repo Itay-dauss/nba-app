@@ -17,7 +17,6 @@ export const ColorPickerButton = styled.button`
 
 export const ColorPickerContainer = styled.div`
   display: flex;
-  flex-flow: row wrap;
   flex-wrap: wrap;
   justify-content: space-around;
   width: 100%;
