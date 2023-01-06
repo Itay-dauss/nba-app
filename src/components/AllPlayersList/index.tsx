@@ -20,8 +20,15 @@ const AllPlayersList: React.FC<allPlayersProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState<string>("");
   const prevSearchValueRef = useRef("");
+  const isFetchRequestExecuted = useRef(false);
 
+  // Effects firing twice in <React.StrictMode /> was added in React 18.
+  // isFetchRequestExecuted is for fetch data once.
   useEffect(() => {
+    if (isFetchRequestExecuted.current) return;
+
+    isFetchRequestExecuted.current = true;
+
     getAllPlayers().then((allPlayersRes: Player[]) => {
       storePlayersFetched(allPlayersRes);
       setIsLoading(false);
